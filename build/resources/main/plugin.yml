@@ -1,5 +1,5 @@
 name: Geo
-main: Main
+main: GeoMain
 version: 0.1
 api-version: 1.15
 description: Geometry and Geography
