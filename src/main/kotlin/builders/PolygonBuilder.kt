@@ -1,10 +1,10 @@
 package builders
 
-import coordinate
 import org.bukkit.Location
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Polygon
+import utils.coordinate
 
 class PolygonBuilder {
     private val coordinates = arrayListOf<Coordinate>()

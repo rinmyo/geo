@@ -1,9 +1,21 @@
+import com.mongodb.MongoClientSettings
 import com.mongodb.MongoException
 import com.mongodb.client.MongoClients
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoDatabase
 import hazae41.minecraft.kutils.bukkit.*
+import org.bson.codecs.configuration.CodecRegistries.fromProviders
+import org.bson.codecs.configuration.CodecRegistries.fromRegistries
+import org.bson.codecs.pojo.PojoCodecProvider
 import org.bukkit.entity.Player
+import utils.createZone
 
 class GeoMain : BukkitPlugin() {
+
+    private lateinit var database: MongoDatabase
+
+    private lateinit var zoneCollection: MongoCollection<Zone>
+
 
     override fun onEnable() {
 
@@ -11,7 +23,12 @@ class GeoMain : BukkitPlugin() {
          * 嘗試連接MongoDB
          */
         try {
-            database = MongoClients.create().getDatabase("test")
+            val codec = fromRegistries(
+                    MongoClientSettings.getDefaultCodecRegistry(),
+                    fromProviders(PojoCodecProvider.builder().automatic(true).build())
+            )
+            database = MongoClients.create(MongoClientSettings.builder().codecRegistry(codec).build()).getDatabase("test")
+            zoneCollection = database.getCollection("zone", Zone::class.java)
             info("連接MongoDB數據庫成功")
 
         } catch (e: MongoException) {
@@ -30,7 +47,7 @@ class GeoMain : BukkitPlugin() {
                     "list" -> {
                         if (args.size < 2) sender.msg("see usage for input /geo ?")
                         else when (args[1]) {
-                            "zone" -> ZoneManager.zoneSet.forEach { sender.msg(" ${it.name}  ${it.world}  ${it.type}  ${it.founder}") }
+                            "zone" -> ZoneManager.zoneSet.forEach { sender.msg(" ${it.name}  ${it.getWorld()?.name}  ${it.type}  ${it.getFounder().name}") }
                         }
                     }
 

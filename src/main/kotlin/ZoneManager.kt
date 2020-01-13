@@ -1,3 +1,5 @@
+import com.mongodb.client.MongoCollection
+import com.mongodb.client.MongoDatabase
 import enums.PropertyType
 import hazae41.minecraft.kutils.bukkit.BukkitEventPriority
 import hazae41.minecraft.kutils.bukkit.BukkitPlugin
@@ -11,26 +13,16 @@ import org.bukkit.event.player.PlayerMoveEvent
 
 object ZoneManager {
 
+
+
     /**
      * 本manager所轄的區域
      */
     val zoneSet = mutableSetOf<Zone>()
 
-    /**
-     * MongoDB的集合
-     */
-    private val col = database.getCollection("Zone") //存放zone的集合
-
-    /**
-     * 從MongoDB中加載數據
-     */
-    fun loadZoneData() {
-        col.find().forEach {
-            register(it.toZone())
-        }
+    fun loadAllFrom(col: MongoCollection<Zone>){
+        col.find().forEach { it.register() }
     }
-
-//    fun getZoneByName(name: String): MongoIterable<AbstractZone> = col.find(Filters.eq("name", name)).map {it.toZone()}
 
     fun register(zone: Zone) {
         //添加到區域集合中

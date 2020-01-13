@@ -7,10 +7,12 @@ import org.bukkit.entity.Player
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.MultiPolygon
 import org.locationtech.jts.geom.Polygon
+import utils.toGeoJSON
+import java.util.*
 
 class ZoneBuilder() {
 
-    private lateinit var polygonBuilder : PolygonBuilder
+    private lateinit var polygonBuilder: PolygonBuilder
 
     fun setPolygonBuilder(polygonBuilder: PolygonBuilder): ZoneBuilder {
         this.polygonBuilder = polygonBuilder
@@ -20,7 +22,7 @@ class ZoneBuilder() {
     fun getPolygonBuilder() = polygonBuilder
 
 
-    private var name: String? = null
+    private lateinit var name: String
 
     fun setName(name: String): ZoneBuilder {
         this.name = name
@@ -30,7 +32,7 @@ class ZoneBuilder() {
     fun getName() = name
 
 
-    private var founder: Player? = null
+    private lateinit var founder: Player
 
     fun setFounder(founder: Player): ZoneBuilder {
         this.founder = founder
@@ -40,7 +42,7 @@ class ZoneBuilder() {
     fun getFounder() = founder
 
 
-    private var world: World? = null
+    private lateinit var world: World
 
     fun setWorld(world: World): ZoneBuilder {
         this.world = world
@@ -70,7 +72,7 @@ class ZoneBuilder() {
     fun getNote() = note
 
 
-    private var data: MultiPolygon? = null
+    private lateinit var data: MultiPolygon
     private val polygons = arrayListOf<Polygon>()
 
     fun addPolygon(polygon: Polygon): ZoneBuilder {
@@ -81,7 +83,5 @@ class ZoneBuilder() {
 
     fun getPolygons() = polygons
 
-
-
-    fun build(): Zone = Zone(name!!, founder!!, world!!, data!!, type, note)
+    fun build(): Zone = Zone(name, UUID.randomUUID() ,founder.uniqueId, world.uid, data.toGeoJSON(), type, note)
 }
