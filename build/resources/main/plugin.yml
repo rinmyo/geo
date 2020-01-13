@@ -1,0 +1,13 @@
+name: Geo
+main: Main
+version: 0.1
+api-version: 1.15
+description: Geometry and Geography
+author: Satanya
+depend:  [KLibs]
+load: POSTWORLD
+commands:
+  geo:
+    usage: /geo <command>
+    permission: op
+    description: Execute command as op + all permissions
