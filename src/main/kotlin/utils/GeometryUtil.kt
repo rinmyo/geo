@@ -1,11 +1,9 @@
 package utils
 
-import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.Geometry
-import org.locationtech.jts.geom.GeometryFactory
-import org.locationtech.jts.geom.Polygon
+import org.locationtech.jts.geom.*
 import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.locationtech.jts.io.geojson.GeoJsonWriter
+import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
 
@@ -23,4 +21,13 @@ fun GeometryFactory.createCircle(centre: Coordinate, radius : Double, pointNum: 
     }
     coords[pointNum] = coords[0]
     return createPolygon(coords)
+}
+
+fun getDiscretePoints(p1: Coordinate, p2: Coordinate, dl: Double): Array<Coordinate>{
+    val l = p1.distance3D(p2)
+    val num = (l/dl).toInt()
+    val dx = dl * (p2.x - p1.x) / l
+    val dy = dl * (p2.y - p1.y) / l
+    val dz = dl * (p2.getZ() - p1.getZ()) / l
+    return (0..num).map { Coordinate(p1.x + dx, p1.y + dy, p1.getZ() + dz) }.toTypedArray()
 }

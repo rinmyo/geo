@@ -1,8 +1,8 @@
 package builders
 
 import Zone
-import enums.contexts.SettingZoneContext
 import enums.ZoneType
+import enums.contexts.SettingZoneContext
 import org.bukkit.World
 import org.bukkit.entity.Player
 import org.locationtech.jts.geom.GeometryFactory
@@ -10,12 +10,13 @@ import org.locationtech.jts.geom.MultiPolygon
 import org.locationtech.jts.geom.Polygon
 import utils.toGeoJSON
 import java.util.*
+import java.util.zip.DeflaterOutputStream
 
-class ZoneBuilder() {
+class ZoneBuilder {
 
-    private lateinit var context : SettingZoneContext
+    private lateinit var context: SettingZoneContext
 
-    fun setContext(context: SettingZoneContext): ZoneBuilder{
+    fun setContext(context: SettingZoneContext): ZoneBuilder {
         this.context = context
         return this
     }
@@ -50,8 +51,6 @@ class ZoneBuilder() {
         return this
     }
 
-    fun getFounder() = founder
-
 
     private lateinit var world: World
 
@@ -59,8 +58,6 @@ class ZoneBuilder() {
         this.world = world
         return this
     }
-
-    fun getWorld() = world
 
 
     private var type: ZoneType? = null
@@ -94,14 +91,18 @@ class ZoneBuilder() {
 
     fun getPolygons() = polygons
 
+    var floor = 0.0
+
+    var ceil = 0.0
+
     private var settingDone = false
 
-    fun setDone(): ZoneBuilder{
+    fun setDone(): ZoneBuilder {
         settingDone = true
         return this
     }
 
     fun isDone() = settingDone
 
-    fun build(): Zone = Zone(name, UUID.randomUUID() ,founder.uniqueId, world.uid, data.toGeoJSON(), type, note)
+    fun build(): Zone = Zone(name, UUID.randomUUID(), founder.uniqueId, world.uid, data.toGeoJSON(), floor, ceil, type, note)
 }

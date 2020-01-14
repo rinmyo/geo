@@ -7,7 +7,7 @@ import org.locationtech.jts.geom.Polygon
 import utils.coordinate
 
 class PolygonBuilder {
-    private val coordinates = arrayListOf<Coordinate>()
+    private val coordinates = mutableListOf<Coordinate>()
 
     fun number() = coordinates.size
 
@@ -16,7 +16,8 @@ class PolygonBuilder {
         return this
     }
 
-    fun isBuildable() = coordinates[0] == coordinates[coordinates.size - 1]
+    fun isBuildable() = (coordinates[0] == coordinates[coordinates.size - 1]) && number() >= 2
 
     fun build(): Polygon = GeometryFactory().createPolygon(coordinates.toTypedArray())
+
 }
