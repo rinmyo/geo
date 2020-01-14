@@ -1,6 +1,7 @@
 package builders
 
 import Zone
+import enums.contexts.SettingZoneContext
 import enums.ZoneType
 import org.bukkit.World
 import org.bukkit.entity.Player
@@ -11,6 +12,16 @@ import utils.toGeoJSON
 import java.util.*
 
 class ZoneBuilder() {
+
+    private lateinit var context : SettingZoneContext
+
+    fun setContext(context: SettingZoneContext): ZoneBuilder{
+        this.context = context
+        return this
+    }
+
+    fun getContext() = context
+
 
     private lateinit var polygonBuilder: PolygonBuilder
 
@@ -82,6 +93,15 @@ class ZoneBuilder() {
     }
 
     fun getPolygons() = polygons
+
+    private var settingDone = false
+
+    fun setDone(): ZoneBuilder{
+        settingDone = true
+        return this
+    }
+
+    fun isDone() = settingDone
 
     fun build(): Zone = Zone(name, UUID.randomUUID() ,founder.uniqueId, world.uid, data.toGeoJSON(), type, note)
 }

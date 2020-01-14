@@ -1,20 +1,48 @@
+import builders.PolygonBuilder
+import builders.ZoneBuilder
 import com.mongodb.MongoClientSettings
 import com.mongodb.MongoException
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoCollection
 import com.mongodb.client.MongoDatabase
+import enums.PropertyType
+import handlers.handleSettingZone
 import hazae41.minecraft.kutils.bukkit.*
 import org.bson.codecs.configuration.CodecRegistries.fromProviders
 import org.bson.codecs.configuration.CodecRegistries.fromRegistries
 import org.bson.codecs.pojo.PojoCodecProvider
 import org.bukkit.entity.Player
-import utils.createZone
+import org.bukkit.event.entity.EntityDamageByEntityEvent
+import org.bukkit.event.entity.EntityDamageEvent
+import org.bukkit.event.player.AsyncPlayerChatEvent
+import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.event.player.PlayerMoveEvent
 
 class GeoMain : BukkitPlugin() {
 
     private lateinit var database: MongoDatabase
 
     private lateinit var zoneCollection: MongoCollection<Zone>
+
+    private val createZoneSessionPool = mutableMapOf<Player, ZoneBuilder>()
+
+    /**
+     * 新會話
+     */
+    fun newCreateZoneSession(player: Player) {
+        createZoneSessionPool[player] = ZoneBuilder().setFounder(player).setWorld(player.world).setPolygonBuilder(PolygonBuilder())
+    }
+
+    fun hasCreateZoneSession(player: Player) = createZoneSessionPool.containsKey(player)
+
+    fun getCreateZoneSession(player: Player) = createZoneSessionPool[player]
+
+    /**
+     * 結束一個對話
+     */
+    fun finishCreateZoneSession(player: Player) {
+        createZoneSessionPool.remove(player)
+    }
 
 
     override fun onEnable() {
@@ -35,38 +63,62 @@ class GeoMain : BukkitPlugin() {
             warning("MongoDB連接失敗 \n$e")
         }
 
-        /**
-         * 註冊主指令
-         */
-        command("geo") { sender, args ->
-            when {
-                args.isEmpty() -> sender.msg("see usage for input /geo ?")
 
-                else -> when (args[0]) {
-                    //to list some geometry
-                    "list" -> {
-                        if (args.size < 2) sender.msg("see usage for input /geo ?")
-                        else when (args[1]) {
-                            "zone" -> ZoneManager.zoneSet.forEach { sender.msg(" ${it.name}  ${it.getWorld()?.name}  ${it.type}  ${it.getFounder().name}") }
-                        }
-                    }
+        listen<AsyncPlayerChatEvent>(BukkitEventPriority.LOWEST) { e ->
+            if (createZoneSessionPool.containsKey(e.player)) {
+                createZoneSessionPool[e.player] = handleSettingZone(createZoneSessionPool[e.player]!!, e)
+            }
+        }
 
-                    "new" -> {
-                        when {
-                            sender !is Player -> sender.msg("You must be a player")
-                            args.size < 2 -> sender.msg("see usage for input /geo ?")
-                            else -> when (args[1]) {
-                                "zone" -> {
-                                    sender.createZone(this@GeoMain)
-                                }
-                            }
-                        }
-                    }
+        listen<PlayerInteractEvent>(BukkitEventPriority.LOWEST) { e ->
+
+            if (createZoneSessionPool.containsKey(e.player)) {
+                createZoneSessionPool[e.player] = handleSettingZone(createZoneSessionPool[e.player]!!, e)
+            }
+
+            PropertyType.DENY_BLOCK_OPERATION.zones.keys.forEach {
+                schedule(true) {
+                    if (it.has(e.player))
+                        e.isCancelled = true
                 }
             }
         }
 
-        ZoneManager.implementProperties(this)
+
+        listen<PlayerMoveEvent>(BukkitEventPriority.LOWEST) { e ->
+            PropertyType.DENY_PLAYER_ENTRY.zones.keys.forEach {
+                schedule(true) {
+                    if (it.isEntry(e))
+                        e.isCancelled = true
+                }
+            }
+
+            PropertyType.DENY_PLAYER_LEAVE.zones.keys.forEach {
+                schedule(true) {
+                    if (it.isLeave(e))
+                        e.isCancelled = true
+                }
+            }
+        }
+
+        listen<EntityDamageByEntityEvent>(BukkitEventPriority.LOWEST) { e ->
+            PropertyType.DENY_PVP.zones.keys.forEach {
+                schedule(true) {
+                    if (e.entity is Player && it.has(e.entity as Player) && e.damager is Player && it.has(e.damager as Player))
+                        e.isCancelled = true
+                }
+            }
+        }
+
+        listen<EntityDamageEvent>(BukkitEventPriority.LOWEST) { e ->
+            PropertyType.DENY_PLAYER_INJURE.zones.keys.forEach {
+                schedule(true) {
+                    if (e.entity is Player && it.has(e.entity))
+                        e.isCancelled = true
+                }
+            }
+        }
+
     }
 
     override fun onDisable() {
