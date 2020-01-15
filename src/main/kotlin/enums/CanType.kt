@@ -3,10 +3,9 @@ package enums
 /**
  * 不同的用地類型
  *
- * @param code 類型編碼
  * @param properties exception之外的玩家的權限
  */
-enum class ZoneType(vararg val properties: PropertyType) {
+enum class CanType(vararg val properties: PropertyType) {
     /**
      * 建築用地
      * 傷害免疫（無例外）， 禁止入內（建築師例外），禁止操作（建築師例外）

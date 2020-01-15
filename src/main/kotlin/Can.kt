@@ -1,4 +1,4 @@
-import enums.ZoneType
+import enums.CanType
 import managers.CanManager
 import org.bukkit.Bukkit
 import org.bukkit.Location
@@ -29,7 +29,7 @@ data class Can(
         private val data: String,
         val floor: Double,
         val ceil: Double,
-        val type: ZoneType?,
+        val type: CanType?,
         private val note: String?
 ) {
     fun getFounder() = Bukkit.getOfflinePlayer(founderID)
@@ -40,9 +40,9 @@ data class Can(
 
     fun register() = CanManager.register(this)
 
-    fun isEntry(e: PlayerMoveEvent) = !contain(e.from) && contain(e.to ?: e.from)
+    fun isEntry(e: PlayerMoveEvent) = !contain(e.from) && contain(e.to)
 
-    fun isLeave(e: PlayerMoveEvent) =  contain(e.from) && !contain(e.to ?: e.from)
+    fun isLeave(e: PlayerMoveEvent) =  contain(e.from) && !contain(e.to)
 
     private fun contain(l: Location) = l.within(this) &&  l.y > floor && l.y < ceil
 

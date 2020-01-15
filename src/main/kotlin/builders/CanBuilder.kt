@@ -1,7 +1,7 @@
 package builders
 
 import Can
-import enums.ZoneType
+import enums.CanType
 import enums.contexts.SettingZoneContext
 import org.bukkit.Material
 import org.bukkit.World
@@ -16,11 +16,11 @@ import utils.msg
 import utils.toGeoJSON
 import java.util.*
 
-class ZoneBuilder {
+class CanBuilder {
 
     private lateinit var context: SettingZoneContext
 
-    fun setContext(context: SettingZoneContext): ZoneBuilder {
+    fun setContext(context: SettingZoneContext): CanBuilder {
         this.context = context
         return this
     }
@@ -30,7 +30,7 @@ class ZoneBuilder {
 
     private lateinit var polygonBuilder: PolygonBuilder
 
-    fun setPolygonBuilder(polygonBuilder: PolygonBuilder): ZoneBuilder {
+    fun setPolygonBuilder(polygonBuilder: PolygonBuilder): CanBuilder {
         this.polygonBuilder = polygonBuilder
         return this
     }
@@ -40,7 +40,7 @@ class ZoneBuilder {
 
     private lateinit var name: String
 
-    private fun setName(name: String): ZoneBuilder {
+    private fun setName(name: String): CanBuilder {
         this.name = name
         return this
     }
@@ -50,7 +50,7 @@ class ZoneBuilder {
 
     private lateinit var founder: Player
 
-    fun setFounder(founder: Player): ZoneBuilder {
+    fun setFounder(founder: Player): CanBuilder {
         this.founder = founder
         return this
     }
@@ -58,15 +58,15 @@ class ZoneBuilder {
 
     private lateinit var world: World
 
-    fun setWorld(world: World): ZoneBuilder {
+    fun setWorld(world: World): CanBuilder {
         this.world = world
         return this
     }
 
 
-    private var type: ZoneType? = null
+    private var type: CanType? = null
 
-    private fun setType(type: ZoneType?): ZoneBuilder {
+    private fun setType(type: CanType?): CanBuilder {
         this.type = type
         return this
     }
@@ -74,7 +74,7 @@ class ZoneBuilder {
 
     private var note: String? = null
 
-    private fun setNote(note: String): ZoneBuilder {
+    private fun setNote(note: String): CanBuilder {
         this.note = note
         return this
     }
@@ -85,7 +85,7 @@ class ZoneBuilder {
     private lateinit var data: MultiPolygon
     private val polygons = arrayListOf<Polygon>()
 
-    private fun addPolygon(polygon: Polygon): ZoneBuilder {
+    private fun addPolygon(polygon: Polygon): CanBuilder {
         polygons.add(polygon)
         this.data = GeometryFactory().createMultiPolygon(polygons.toTypedArray())
         return this
@@ -99,7 +99,7 @@ class ZoneBuilder {
 
     private var settingDone = false
 
-    private fun setDone(): ZoneBuilder {
+    private fun setDone(): CanBuilder {
         settingDone = true
         return this
     }
@@ -108,7 +108,7 @@ class ZoneBuilder {
 
     fun build(): Can = Can(name, UUID.randomUUID(), founder.uniqueId, world.uid, data.toGeoJSON(), floor, ceil, type, note)
 
-    fun handleEvent(chatEvent: AsyncPlayerChatEvent): ZoneBuilder {
+    fun handleEvent(chatEvent: AsyncPlayerChatEvent): CanBuilder {
         chatEvent.isCancelled = true
 
         when (getContext()) {
@@ -127,7 +127,7 @@ class ZoneBuilder {
             SettingZoneContext.CONFIRM_ZONE_NAME -> return when (chatEvent.message.toUpperCase()) {
                 "Y", "YES" -> {
                     chatEvent.player.msg("0>   NULL")
-                    enumValues<ZoneType>().forEach { type ->
+                    enumValues<CanType>().forEach { type ->
                         chatEvent.player.msg("${type.ordinal + 1}>   ${type.name}")
                     }
                     chatEvent.player.msg("OK, What Type of Zone would you like to set? \n Please Choose One Of The Below TYPEs, and input its number")
@@ -154,8 +154,8 @@ class ZoneBuilder {
                 return if (num != null) {
                     if (num == 0) {
                         setType(null)
-                    } else if (num > 0 && num < enumValues<ZoneType>().size) {
-                        setType(enumValues<ZoneType>().associateBy { it.ordinal }[num])
+                    } else if (num > 0 && num < enumValues<CanType>().size) {
+                        setType(enumValues<CanType>().associateBy { it.ordinal }[num])
                     }
                     chatEvent.player.msg("What you input is: $type (Y/N)?")
                     setContext(getContext() + 1)
@@ -283,7 +283,7 @@ class ZoneBuilder {
         }
     }
 
-    fun handleEvent(event: PlayerInteractEvent): ZoneBuilder {
+    fun handleEvent(event: PlayerInteractEvent): CanBuilder {
         when (getContext()) {
 
             SettingZoneContext.SETTING_ZONE_DATA -> {

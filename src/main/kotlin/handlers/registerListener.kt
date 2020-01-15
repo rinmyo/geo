@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent
 
 fun registerListeners(plugin: BukkitPlugin){
     plugin.listen<AsyncPlayerChatEvent>(BukkitEventPriority.LOWEST) { e ->
+        //檢查玩家是否有正在進行的zone會話
         if (SessionManager.hasSession(e.player)) {
             SessionManager.updateSession(e.player, SessionManager.getSession(e.player)!!.handleEvent(e))
         }
