@@ -32,8 +32,3 @@ test:
     paths:
       - build
       - .gradle
-
-deploy:
-  stage: deploy
-  script:
-    - ./deployg
