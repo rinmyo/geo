@@ -6,8 +6,8 @@ stages:
   - deploy
 
 before_script:
-    - echo `geo` # debug
-    - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
+  - echo `geo` # debug
+  - echo "$CI_BUILD_NAME, $CI_BUILD_REF_NAME $CI_BUILD_STAGE" # debug
   - export GRADLE_USER_HOME= `geo`/.gradle
 
 cache:
