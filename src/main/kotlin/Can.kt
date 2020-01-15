@@ -1,12 +1,11 @@
 import enums.ZoneType
-import managers.ZoneManager
+import managers.CanManager
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.entity.Entity
 import org.bukkit.event.player.PlayerMoveEvent
 import org.locationtech.jts.geom.MultiPolygon
 import utils.geometryFrom
-import utils.toJTSPoint
 import utils.within
 import java.util.*
 
@@ -16,11 +15,13 @@ import java.util.*
  * @param founderID 創建者
  * @param worldID 所在的世界
  * @param data 定義區域的地理數據
+ * @param floor 區域的地板
+ * @param ceil 區域的天花板
  * @param type 類型，為空則說明沒有類型
  * @param note 備注，為空則說明沒有備註
  *
  */
-data class Zone(
+data class Can(
         val name: String,
         val uuid: UUID,
         private val founderID: UUID,
@@ -37,7 +38,7 @@ data class Zone(
 
     fun getData() = geometryFrom(data) as MultiPolygon
 
-    fun register() = ZoneManager.register(this)
+    fun register() = CanManager.register(this)
 
     fun isEntry(e: PlayerMoveEvent) = !contain(e.from) && contain(e.to ?: e.from)
 

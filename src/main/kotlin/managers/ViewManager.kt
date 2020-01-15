@@ -2,9 +2,8 @@ package managers
 
 import GeoMain
 import Path
-import Zone
+import Can
 import hazae41.minecraft.kutils.bukkit.schedule
-import org.bukkit.Particle
 import org.bukkit.entity.Player
 
 /**
@@ -12,8 +11,8 @@ import org.bukkit.entity.Player
  */
 object ViewManager {
 
-    val zone2DViewsPool = mutableMapOf<Player, Zone>()
-    val zone3DViewsPool = mutableMapOf<Player, Zone>()
+    val zone2DViewsPool = mutableMapOf<Player, Can>()
+    val zone3DViewsPool = mutableMapOf<Player, Can>()
     val pathViewsPool = mutableMapOf<Player, Path>()
 
     fun viewZone2D(plugin: GeoMain){

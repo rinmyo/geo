@@ -1,13 +1,7 @@
-import enums.ZoneType
 import managers.PathManager
-import managers.ZoneManager
 import org.bukkit.Bukkit
-import org.bukkit.entity.Entity
-import org.bukkit.event.player.PlayerMoveEvent
 import org.locationtech.jts.geom.LineString
 import utils.geometryFrom
-import utils.toJTSPoint
-import utils.within
 import java.util.*
 
 /**

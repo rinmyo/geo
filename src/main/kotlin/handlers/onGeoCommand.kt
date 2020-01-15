@@ -1,9 +1,9 @@
 package handlers
 
 import GeoMain
-import Zone
+import Can
 import hazae41.minecraft.kutils.bukkit.command
-import managers.ZoneManager
+import managers.CanManager
 import managers.SessionManager
 import utils.msg
 import org.bukkit.entity.Player
@@ -21,7 +21,7 @@ fun handleCommand(plugin: GeoMain){
                 "list" -> {
                     if (args.size < 2) sender.msg("see usage for input /geo ?")
                     else when (args[1]) {
-                        "zone" -> ZoneManager.zoneSet.forEach { sender.msg(" ${it.name}  ${it.getWorld()?.name}  ${it.type}  ${it.getFounder().name}") }
+                        "zone" -> CanManager.zoneSet.forEach { sender.msg(" ${it.name}  ${it.getWorld()?.name}  ${it.type}  ${it.getFounder().name}") }
                     }
                 }
 
@@ -32,7 +32,7 @@ fun handleCommand(plugin: GeoMain){
                         else -> when (args[1]) {
                             "zone" -> {
                                 sender.msg("Please input the name of the Zone that you will found: ")
-                                SessionManager.newSession<Zone>(sender)
+                                SessionManager.newSession<Can>(sender)
                             }
                         }
                     }

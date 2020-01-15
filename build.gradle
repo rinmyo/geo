@@ -20,6 +20,7 @@ repositories {
 dependencies {
     compileOnly 'org.jetbrains.kotlin:kotlin-stdlib-jdk8'
     compileOnly 'com.github.hazae41:mc-kutils:master-SNAPSHOT'
+    compileOnly 'org.jetbrains.kotlin:kotlin-reflect'
     implementation 'org.locationtech.jts:jts-core:1.16.1'
     implementation 'org.locationtech.jts.io:jts-io-common:1.16.1'
     implementation 'org.mongodb:mongodb-driver-sync:3.12.0'

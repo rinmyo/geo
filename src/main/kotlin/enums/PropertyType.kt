@@ -1,6 +1,6 @@
 package enums
 
-import Zone
+import Can
 import org.bukkit.entity.Player
 
 /**
@@ -37,5 +37,5 @@ enum class PropertyType {
      * K 區域
      * V 例外玩家
      */
-    val zones = mutableMapOf<Zone, MutableSet<Player>>()
+    val zones = mutableMapOf<Can, MutableSet<Player>>()
 }

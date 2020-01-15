@@ -1,9 +1,10 @@
-import managers.ZoneManager.zoneCollection
+import managers.CanManager.canCollection
 import com.mongodb.MongoClientSettings
 import com.mongodb.MongoException
 import com.mongodb.client.MongoClients
 import com.mongodb.client.MongoDatabase
 import handlers.handleCommand
+import handlers.registerListeners
 import hazae41.minecraft.kutils.bukkit.*
 import org.bson.codecs.configuration.CodecRegistries.fromProviders
 import org.bson.codecs.configuration.CodecRegistries.fromRegistries
@@ -15,16 +16,13 @@ class GeoMain : BukkitPlugin() {
 
     override fun onEnable() {
 
-        /**
-         * 嘗試連接MongoDB
-         */
         try {
             val codec = fromRegistries(
                     MongoClientSettings.getDefaultCodecRegistry(),
                     fromProviders(PojoCodecProvider.builder().automatic(true).build())
             )
             database = MongoClients.create(MongoClientSettings.builder().codecRegistry(codec).build()).getDatabase("test")
-            zoneCollection = database.getCollection("zone", Zone::class.java)
+            canCollection = database.getCollection("zone", Can::class.java)
             info("&a連接MongoDB數據庫成功")
 
         } catch (e: MongoException) {

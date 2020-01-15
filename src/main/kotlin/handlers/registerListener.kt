@@ -1,5 +1,6 @@
+package handlers
+
 import enums.PropertyType
-import handlers.handleSettingZone
 import hazae41.minecraft.kutils.bukkit.BukkitEventPriority
 import hazae41.minecraft.kutils.bukkit.BukkitPlugin
 import hazae41.minecraft.kutils.bukkit.listen
@@ -15,14 +16,14 @@ import org.bukkit.event.player.PlayerMoveEvent
 fun registerListeners(plugin: BukkitPlugin){
     plugin.listen<AsyncPlayerChatEvent>(BukkitEventPriority.LOWEST) { e ->
         if (SessionManager.hasSession(e.player)) {
-            SessionManager.updateSession(e.player, handleSettingZone(SessionManager.getSession(e.player)!!, e))
+            SessionManager.updateSession(e.player, SessionManager.getSession(e.player)!!.handleEvent(e))
         }
     }
 
     plugin.listen<PlayerInteractEvent>(BukkitEventPriority.LOWEST) { e ->
 
         if (SessionManager.hasSession(e.player)) {
-            SessionManager.updateSession(e.player, handleSettingZone(SessionManager.getSession(e.player)!!, e))
+            SessionManager.updateSession(e.player, SessionManager.getSession(e.player)!!.handleEvent(e))
         }
 
         PropertyType.DENY_BLOCK_OPERATION.zones.keys.forEach {

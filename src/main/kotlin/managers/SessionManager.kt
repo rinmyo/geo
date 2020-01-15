@@ -1,7 +1,7 @@
 package managers
 
 import Path
-import Zone
+import Can
 import builders.PathBuilder
 import builders.PolygonBuilder
 import builders.ZoneBuilder
@@ -15,7 +15,7 @@ object SessionManager {
 
     inline fun <reified T> newSession(player: Player) {
         when (T::class){
-            Zone::class -> zoneSessionPool[player] = ZoneBuilder().setContext(SettingZoneContext.SETTING_ZONE_NAME).setFounder(player).setWorld(player.world).setPolygonBuilder(PolygonBuilder())
+            Can::class -> zoneSessionPool[player] = ZoneBuilder().setContext(SettingZoneContext.SETTING_ZONE_NAME).setFounder(player).setWorld(player.world).setPolygonBuilder(PolygonBuilder())
             Path::class -> pathSessionPool[player] = PathBuilder()
         }
     }
