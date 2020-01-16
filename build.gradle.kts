@@ -9,7 +9,7 @@ group = "dev.glycine"
 version = "0.1"
 
 repositories {
-    mavenCentral()
+    jcenter()
     maven("https://jitpack.io")
     maven("https://repo.locationtech.org/content/groups/releases")
     maven("https://papermc.io/repo/repository/maven-public/")
