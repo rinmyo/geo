@@ -5,22 +5,16 @@ import GeoMain
 import Path
 import builders.CanBuilder
 import builders.PathBuilder
-import exceptions.GeoException
 import hazae41.minecraft.kutils.bukkit.schedule
 import org.bukkit.Particle
 import org.bukkit.entity.Player
 import org.locationtech.jts.geom.Coordinate
-import org.locationtech.jts.geom.CoordinateList
-import org.locationtech.jts.geom.MultiPolygon
-import utils.getDiscretePoints
+import utils.getDiscreteCoordinates
 
 /**
  * 視圖管理者
  */
 object ViewManager {
-
-    private val dynamicHeightCoordinates = mutableMapOf<Player, CoordinateList>()
-    private val fixedHeightCoordinates = mutableMapOf<Player, CoordinateList>()
 
     private val canPool = mutableMapOf<Player, MutableSet<Can>>()
     private val canBuilderPool = mutableMapOf<Player, CanBuilder>()
@@ -37,9 +31,9 @@ object ViewManager {
             }
 
             is Can -> {
-                if (canPool.containsKey(player)){
+                if (canPool.containsKey(player)) {
                     canPool[player]!!.add(what)
-                }else{
+                } else {
                     canPool[player] = mutableSetOf(what)
                 }
             }
@@ -49,40 +43,45 @@ object ViewManager {
             }
 
             is Path -> {
-                if (pathPool.containsKey(player)){
+                if (pathPool.containsKey(player)) {
                     pathPool[player]!!.add(what)
-                }else{
+                } else {
                     pathPool[player] = mutableSetOf(what)
                 }
             }
         }
     }
 
-
     /**
      * 高度隨玩家而動
      */
     fun view(plugin: GeoMain) {
         /*
-        view dynamicHeightCoordinates
+        view CAN
          */
-        plugin.schedule(period = 0.2.toLong()) {
-            dynamicHeightCoordinates.forEach { (t, u) ->
-                var p1: Coordinate = u[0]
-                u.forEach { p2 ->
-                    getDiscretePoints(p1, p2, 0.2).forEach {
-                        if (p1 != p2) t.spawnParticle(Particle.LANDING_LAVA, it.x, t.location.y, it.y, 2)
-                        p1 = p2
+        plugin.schedule(period = 0.1.toLong()) {
+            canPool.forEach { (p, c) ->
+                c.forEach { can ->
+                    var p1: Coordinate = can.getData().coordinates[0]
+                    can.getData().coordinates.forEach { p2 ->
+                        getDiscreteCoordinates(p1, p2, 0.2).forEach {
+                            if (p1 != p2) {
+                                val y = if (p.location.y < can.floor) can.floor else if (p.location.y > can.ceil) can.ceil else p.location.y
+                                p.spawnParticle(Particle.LANDING_LAVA, it.x, y, it.y, 2)
+                            }
+                            p1 = p2
+                        }
                     }
                 }
             }
         }
 
-        /*
-        view fixedHeightCoordinates
-         */
-        plugin.schedule(period = 0.2.toLong()) {
-
+        plugin.schedule(period = 0.1.toLong()) {
+            canPool.forEach { (p, c) ->
+                c.forEach { can ->
+                    
+                }
+            }
         }
     }
 

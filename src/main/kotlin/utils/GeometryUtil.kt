@@ -23,7 +23,7 @@ fun GeometryFactory.createCircle(centre: Coordinate, radius : Double, pointNum: 
     return createPolygon(coords)
 }
 
-fun getDiscretePoints(p1: Coordinate, p2: Coordinate, dl: Double): Array<Coordinate>{
+fun getDiscreteCoordinates(p1: Coordinate, p2: Coordinate, dl: Double): Array<Coordinate>{
     val l = p1.distance3D(p2)
     val num = (l/dl).toInt()
     val dx = dl * (p2.x - p1.x) / l

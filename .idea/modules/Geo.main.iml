@@ -5,7 +5,6 @@
       <configuration>
         <autoDetectTypes>
           <platformType>PAPER</platformType>
-          <platformType>BUNGEECORD</platformType>
         </autoDetectTypes>
       </configuration>
     </facet>

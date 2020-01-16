@@ -3,8 +3,8 @@ main: GeoMain
 version: @version@
 api-version: 1.15
 description: Geometry and Geography
-author: Satanya
-depend:  [KLibs]
+author: Satanya0
+depend:  [UtopoaLib]
 load: POSTWORLD
 commands:
   geo:

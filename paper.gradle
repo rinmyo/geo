@@ -1,7 +1,0 @@
-repositories {
-    maven { url "https://papermc.io/repo/repository/maven-public/"}
-}
-
-dependencies {
-    compileOnly "com.destroystokyo.paper:paper-api:1.15.1-R0.1-SNAPSHOT"
-}
