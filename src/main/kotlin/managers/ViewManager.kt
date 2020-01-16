@@ -62,8 +62,8 @@ object ViewManager {
         plugin.schedule(period = 0.1.toLong()) {
             canPool.forEach { (p, c) ->
                 c.forEach { can ->
-                    var p1: Coordinate = can.getData().coordinates[0]
-                    can.getData().coordinates.forEach { p2 ->
+                    var p1: Coordinate = can.getProfile().coordinates[0]
+                    can.getProfile().coordinates.forEach { p2 ->
                         getDiscreteCoordinates(p1, p2, 0.2).forEach {
                             if (p1 != p2) {
                                 val y = if (p.location.y < can.floor) can.floor else if (p.location.y > can.ceil) can.ceil else p.location.y

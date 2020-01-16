@@ -32,23 +32,63 @@ data class Can(
         val type: CanType?,
         private val note: String?
 ) {
+    /**
+     * @return 這個can的構建人
+     */
     fun getFounder() = Bukkit.getOfflinePlayer(founderID)
 
+    /**
+     * @return can所在的世界
+     */
     fun getWorld() = Bukkit.getWorld(worldID)
 
-    fun getData() = geometryFrom(data) as MultiPolygon
+    /**
+     * @return 返回這個can的縱斷面積
+     */
+    fun getProfile() = geometryFrom(data) as MultiPolygon
 
+    /**
+     * @return 獲得高度
+     */
+    fun getHeight() = ceil - floor
+
+    /**
+     * @return 體積
+     */
+    fun getVolume() = getProfile().area * getHeight()
+
+    /**
+     * 註冊到罐頭管理員
+     */
     fun register() = CanManager.register(this)
 
+    /**
+     * 判定某個玩家移動事件是否進入了罐頭
+     */
     fun isEntry(e: PlayerMoveEvent) = !contain(e.from) && contain(e.to)
 
+    /**
+     * 判斷某個玩家移動事件是否離開了罐頭
+     */
     fun isLeave(e: PlayerMoveEvent) =  contain(e.from) && !contain(e.to)
 
-    private fun contain(l: Location) = l.within(this) &&  l.y > floor && l.y < ceil
+    /**
+     * 檢查某個位置是否包含在罐頭中
+     */
+    fun contain(l: Location) = l.within(this) &&  l.y > floor && l.y < ceil
 
-    fun has(e: Entity) = contain(e.location)
+    /**
+     * 檢查某個實體是否在罐頭中
+     */
+    fun has(e: Entity) = e.world == getWorld() && contain(e.location)
 
-    fun getPlayers() = getWorld()?.players?.filter { has(it) }
+    /**
+     * 獲得罐頭內的所有玩家
+     */
+    fun getPlayers() = getWorld()?.players?.filter { contain(it.location) }
 
-    fun getEntities() = getWorld()?.entities?.filter { has(it) }
+    /**
+     * 獲得罐頭內的所有實體
+     */
+    fun getEntities() = getWorld()?.entities?.filter { contain(it.location) }
 }
