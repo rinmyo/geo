@@ -4,7 +4,7 @@ version: @version@
 api-version: 1.15
 description: Geometry and Geography
 author: Satanya0
-depend:  [UtopoaLib]
+depend:  [UtopiaLib]
 load: POSTWORLD
 commands:
   geo:
