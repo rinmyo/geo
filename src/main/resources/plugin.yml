@@ -3,7 +3,7 @@ main: GeoMain
 version: @version@
 api-version: 1.15
 description: Geometry and Geography
-author: Satanya0
+author: Satanya
 depend:  [UtopiaLib]
 load: POSTWORLD
 commands:
