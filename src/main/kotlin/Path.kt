@@ -10,7 +10,7 @@ import java.util.*
  * @param founderID 創建者
  * @param worldID 所在的世界
  * @param data 定義區域的地理數據
- * @param note 備注，為空則說明沒有備註
+ * @param description 備注，為空則說明沒有備註
  *
  */
 data class Path(
@@ -19,7 +19,7 @@ data class Path(
         private val founderID: UUID,
         private val worldID: UUID,
         private val data: String,
-        private val note: String?
+        private val description: String?
 ) {
     fun getFounder() = Bukkit.getOfflinePlayer(founderID)
 

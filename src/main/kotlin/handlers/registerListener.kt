@@ -13,18 +13,18 @@ import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.player.PlayerMoveEvent
 
-fun registerListeners(plugin: BukkitPlugin){
+fun registerListeners(plugin: BukkitPlugin) {
     plugin.listen<AsyncPlayerChatEvent>(BukkitEventPriority.LOWEST) { e ->
         //檢查玩家是否有正在進行的zone會話
         if (SessionManager.hasSession(e.player)) {
-            SessionManager.updateSession(e.player, SessionManager.getSession(e.player)!!.handleEvent(e))
+            SessionManager.getSession(e.player)!!.handleEvent(e)
         }
     }
 
     plugin.listen<PlayerInteractEvent>(BukkitEventPriority.LOWEST) { e ->
 
         if (SessionManager.hasSession(e.player)) {
-            SessionManager.updateSession(e.player, SessionManager.getSession(e.player)!!.handleEvent(e))
+            SessionManager.getSession(e.player)!!.handleEvent(e)
         }
 
         PropertyType.DENY_BLOCK_OPERATION.zones.keys.forEach {

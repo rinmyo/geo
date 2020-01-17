@@ -18,7 +18,7 @@ import java.util.*
  * @param floor 區域的地板
  * @param ceil 區域的天花板
  * @param type 類型，為空則說明沒有類型
- * @param note 備注，為空則說明沒有備註
+ * @param description 備注，為空則說明沒有備註
  *
  */
 data class Can(
@@ -30,7 +30,7 @@ data class Can(
         val floor: Double,
         val ceil: Double,
         val type: CanType?,
-        private val note: String?
+        private val description: String?
 ) {
     /**
      * @return 這個can的構建人

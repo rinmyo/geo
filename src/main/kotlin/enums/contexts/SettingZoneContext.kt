@@ -9,10 +9,10 @@ enum class SettingZoneContext {
     CONFIRM_ZONE_DATA,
     SETTING_HEIGHT,
     CONFIRM_HEIGHT,
-    SETTING_ZONE_NOTE,
-    CONFIRM_ZONE_NOTE;
+    SETTING_ZONE_DESCRIPTION,
+    CONFIRM_ZONE_DESCRIPTION;
 
-    operator fun plus(int: Int) = values()[this.ordinal + int]
+    operator fun inc() = values()[this.ordinal + 1]
 
-    operator fun minus(int: Int) = values()[this.ordinal - int]
+    operator fun dec() = values()[this.ordinal - 1]
 }
