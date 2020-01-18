@@ -9,6 +9,7 @@ import org.bukkit.entity.Player
 import org.bukkit.event.block.Action
 import org.bukkit.event.player.AsyncPlayerChatEvent
 import org.bukkit.event.player.PlayerInteractEvent
+import org.bukkit.inventory.ItemStack
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.MultiPolygon
 import org.locationtech.jts.geom.Polygon
@@ -20,7 +21,7 @@ class CanBuilder {
 
     private lateinit var context: SettingZoneContext
 
-    fun setContext(context: SettingZoneContext): CanBuilder{
+    fun setContext(context: SettingZoneContext): CanBuilder {
         this.context = context
         return this
     }
@@ -149,7 +150,9 @@ class CanBuilder {
              */
             SettingZoneContext.CONFIRM_ZONE_TYPE -> when (chatEvent.message.toUpperCase()) {
                 "Y", "YES" -> {
-                    chatEvent.player.msg("We will set some polygon next, Please Use GOLDEN_PICKAX click block in turns")
+                    chatEvent.player.msg("We will set some polygon next, Please Use 經量儀 click block in turns")
+                    chatEvent.player.inventory.addItem(chatEvent.player.inventory.itemInMainHand)
+                    chatEvent.player.inventory.setItemInMainHand(ItemStack(Material.GOLDEN_PICKAXE))
                     context++
                 }
 
@@ -210,7 +213,6 @@ class CanBuilder {
             /*
              確認高度
              */
-
             SettingZoneContext.CONFIRM_HEIGHT -> when (chatEvent.message.toUpperCase()) {
                 "Y", "YES" -> {
                     chatEvent.player.msg("現在你可以為剛剛新建的區域設定一些描述")
