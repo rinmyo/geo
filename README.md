@@ -1,6 +1,6 @@
 GEO
 -
-[![pipeline status](https://gitlab.com/glycine/geo/badges/master/pipeline.svg)](https://gitlab.com/glycine/geo/commits/master)
+[![TeamCity status](http://219.154.204.35:8111/app/rest/builds/buildType:(id:Geo_Build)/statusIcon.svg)](http://219.154.204.35:8111/viewType.html?buildTypeId=Geo_Build&guest=1)
 
 This is a Bukkit/Spigot plugin that can provide the support to the geography and geometry. Developed in Kotlin.
 
