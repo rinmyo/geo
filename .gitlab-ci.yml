@@ -16,7 +16,7 @@ before_script:
 
 build:
   stage: build
-  script: gradle --build-cache assemble
+  script: gradle clean shadowJar
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: push
@@ -24,9 +24,9 @@ build:
       - build
       - .gradle
 
-shadowJar:
-  stage: shadowJar
-  script: gradle clean shadowJar
+deploy:
+  stage: deploy
+  script: gradle clean
   cache:
     key: "$CI_COMMIT_REF_NAME"
     policy: pull
