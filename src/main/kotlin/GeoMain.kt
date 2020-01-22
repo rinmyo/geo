@@ -17,14 +17,13 @@ class GeoMain : BukkitPlugin() {
     private lateinit var database: MongoDatabase
 
     override fun onEnable() {
-
+        //連接MongoDB
         try {
             val codec = fromRegistries(
                 MongoClientSettings.getDefaultCodecRegistry(),
                 fromProviders(PojoCodecProvider.builder().automatic(true).build())
             )
-            database =
-                MongoClients.create(MongoClientSettings.builder().codecRegistry(codec).build()).getDatabase("test")
+            database = MongoClients.create(MongoClientSettings.builder().codecRegistry(codec).build()).getDatabase("test")
             canCollection = database.getCollection("zone", Can::class.java)
             info("&a連接MongoDB數據庫成功")
 
@@ -32,13 +31,15 @@ class GeoMain : BukkitPlugin() {
             warning("&cMongoDB連接失敗 \n$e")
         }
 
+        //處理指令
         handleCommand(this)
 
+        //註冊監聽器
         registerListeners(this)
     }
 
     override fun onDisable() {
-        info("add...")
+        info("Disable GEO succeed!")
     }
 
     override fun onLoad() {
@@ -55,6 +56,7 @@ class GeoMain : BukkitPlugin() {
               \::/  /       \::/  /       \::/  /   
                \/__/         \/__/         \/__/
         """
+        info("Welcome using G-E-O!")
         info("&5$logo")
     }
 }

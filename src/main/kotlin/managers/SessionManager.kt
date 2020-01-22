@@ -5,7 +5,7 @@ import Can
 import builders.PathBuilder
 import builders.PolygonBuilder
 import builders.CanBuilder
-import enums.contexts.SettingZoneContext
+import enums.contexts.SettingCanContext
 import org.bukkit.entity.Player
 
 object SessionManager {
@@ -15,7 +15,7 @@ object SessionManager {
 
     inline fun <reified T> newSession(player: Player) {
         when (T::class){
-            Can::class -> zoneSessionPool[player] = CanBuilder().setContext(SettingZoneContext.SETTING_ZONE_NAME).setFounder(player).setWorld(player.world).setPolygonBuilder(PolygonBuilder())
+            Can::class -> zoneSessionPool[player] = CanBuilder().setContext(SettingCanContext.SETTING_NAME).setFounder(player).setWorld(player.world).setPolygonBuilder(PolygonBuilder())
             Path::class -> pathSessionPool[player] = PathBuilder()
         }
     }

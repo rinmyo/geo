@@ -5,7 +5,7 @@ import com.mongodb.client.MongoCollection
 
 object CanManager {
 
-    val zoneSet = mutableSetOf<Can>()
+    val canSet = mutableSetOf<Can>()
 
     lateinit var canCollection: MongoCollection<Can>
 
@@ -17,12 +17,12 @@ object CanManager {
 
     fun register(can: Can) {
         //添加到區域集合中
-        zoneSet.add(can)
+        canSet.add(can)
 
         if(can.type != null){
             //權限映射中加上這個區域
             can.type.properties.forEach {
-                it.zones.putIfAbsent(can, mutableSetOf())
+                it.cans.add(can)
             }
         }
     }

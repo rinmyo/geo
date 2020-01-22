@@ -1,10 +1,7 @@
 package handlers
 
 import enums.PropertyType
-import hazae41.minecraft.kutils.bukkit.BukkitEventPriority
-import hazae41.minecraft.kutils.bukkit.BukkitPlugin
-import hazae41.minecraft.kutils.bukkit.listen
-import hazae41.minecraft.kutils.bukkit.schedule
+import hazae41.minecraft.kutils.bukkit.*
 import managers.SessionManager
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
@@ -27,44 +24,42 @@ fun registerListeners(plugin: BukkitPlugin) {
             SessionManager.getSession(e.player)!!.handleEvent(e)
         }
 
-        PropertyType.DENY_BLOCK_OPERATION.zones.keys.forEach {
-            plugin.schedule(true) {
-                if (it.has(e.player))
-                    e.isCancelled = true
+        PropertyType.DENY_BLOCK_OPERATION.cans.forEach {
+            if (e.hasBlock() && it.contain(e.clickedBlock!!)) {
+                plugin.info("玩家破壞了，但取消了")
+                e.isCancelled = true
             }
         }
     }
 
     plugin.listen<PlayerMoveEvent>(BukkitEventPriority.LOWEST) { e ->
-        PropertyType.DENY_PLAYER_ENTRY.zones.keys.forEach {
-            plugin.schedule(true) {
-                if (it.isEntry(e))
-                    e.isCancelled = true
+        PropertyType.DENY_PLAYER_ENTRY.cans.forEach {
+            if (it.isEntry(e)) {
+                e.isCancelled = true
             }
         }
 
-        PropertyType.DENY_PLAYER_LEAVE.zones.keys.forEach {
-            plugin.schedule(true) {
-                if (it.isLeave(e))
-                    e.isCancelled = true
+        PropertyType.DENY_PLAYER_LEAVE.cans.forEach {
+            if (it.isLeave(e)) {
+                e.isCancelled = true
             }
         }
     }
 
     plugin.listen<EntityDamageByEntityEvent>(BukkitEventPriority.LOWEST) { e ->
-        PropertyType.DENY_PVP.zones.keys.forEach {
-            plugin.schedule(true) {
-                if (e.entity is Player && it.has(e.entity as Player) && e.damager is Player && it.has(e.damager as Player))
-                    e.isCancelled = true
+        PropertyType.DENY_PVP.cans.forEach {
+            if (e.entity is Player && it.contain(e.entity as Player) && e.damager is Player && it.contain(e.damager as Player)) {
+                e.isCancelled = true
             }
         }
     }
 
     plugin.listen<EntityDamageEvent>(BukkitEventPriority.LOWEST) { e ->
-        PropertyType.DENY_PLAYER_INJURE.zones.keys.forEach {
+        PropertyType.DENY_PLAYER_INJURE.cans.forEach {
             plugin.schedule(true) {
-                if (e.entity is Player && it.has(e.entity))
+                if (e.entity is Player && it.contain(e.entity)) {
                     e.isCancelled = true
+                }
             }
         }
     }

@@ -21,8 +21,12 @@ fun handleCommand(plugin: GeoMain){
                 "list" -> {
                     if (args.size < 2) sender.msg("see usage for input /geo ?")
                     else when (args[1]) {
-                        "zone" -> CanManager.zoneSet.forEach { sender.msg(" ${it.name}  ${it.getWorld()?.name}  ${it.type}  ${it.getFounder().name}") }
+                        "can" -> CanManager.canSet.forEach { sender.msg(" ${it.name}  ${it.getWorld()?.name}  ${it.type}  ${it.getFounder().name}") }
                     }
+                }
+
+                "tp" -> {
+
                 }
 
                 "build" -> {
@@ -30,8 +34,8 @@ fun handleCommand(plugin: GeoMain){
                         sender !is Player -> sender.msg("You must be a player")
                         args.size < 2 -> sender.msg("see usage for input /geo ?")
                         else -> when (args[1]) {
-                            "zone" -> {
-                                sender.msg("Please input the name of the Zone that you will found: ")
+                            "can" -> {
+                                sender.msg("Please input the name of the CAN that you will found: ")
                                 SessionManager.newSession<Can>(sender)
                             }
                         }

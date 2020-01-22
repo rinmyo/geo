@@ -15,7 +15,6 @@ repositories {
     maven("https://papermc.io/repo/repository/maven-public/")
 }
 
-
 dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
     compileOnly("com.destroystokyo.paper", "paper-api", "1.15.1-R0.1-SNAPSHOT")
@@ -24,8 +23,6 @@ dependencies {
     implementation("org.locationtech.jts.io", "jts-io-common", "1.16.1")
     implementation("org.mongodb", "mongodb-driver-sync", "3.12.0")
 }
-
-
 
 tasks {
     processResources {

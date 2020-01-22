@@ -2,11 +2,12 @@ import enums.CanType
 import managers.CanManager
 import org.bukkit.Bukkit
 import org.bukkit.Location
+import org.bukkit.block.Block
 import org.bukkit.entity.Entity
 import org.bukkit.event.player.PlayerMoveEvent
 import org.locationtech.jts.geom.MultiPolygon
 import utils.geometryFrom
-import utils.within
+import utils.toJTSPoint
 import java.util.*
 
 /**
@@ -75,12 +76,11 @@ data class Can(
     /**
      * 檢查某個位置是否包含在罐頭中
      */
-    fun contain(l: Location) = l.within(this) &&  l.y > floor && l.y < ceil
+    private fun contain(l: Location) = getProfile().contains(l.toJTSPoint()) && getProfile().boundary.contains(l.toJTSPoint()) &&  l.y >= floor && l.y <= ceil
 
-    /**
-     * 檢查某個實體是否在罐頭中
-     */
-    fun has(e: Entity) = e.world == getWorld() && contain(e.location)
+    fun contain(b: Block) = b.world == getWorld() && contain(b.location)
+
+    fun contain(e: Entity) = e.world == getWorld() && contain(e.location)
 
     /**
      * 獲得罐頭內的所有玩家

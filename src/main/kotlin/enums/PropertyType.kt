@@ -37,5 +37,5 @@ enum class PropertyType {
      * K 區域
      * V 例外玩家
      */
-    val zones = mutableMapOf<Can, MutableSet<Player>>()
+    val cans = mutableSetOf<Can>()
 }
