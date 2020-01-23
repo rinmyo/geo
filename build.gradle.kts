@@ -12,12 +12,13 @@ repositories {
     jcenter()
     maven("https://jitpack.io")
     maven("https://repo.locationtech.org/content/groups/releases")
+    maven("https://oss.sonatype.org/content/groups/public/")
     maven("https://papermc.io/repo/repository/maven-public/")
 }
 
 dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
-    compileOnly("com.destroystokyo.paper", "paper-api", "1.15.1-R0.1-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper", "paper-api", "1.15.2-R0.1-SNAPSHOT")
     compileOnly("com.github.hazae41", "mc-kutils", "master-SNAPSHOT")
     implementation("org.locationtech.jts", "jts-core", "1.16.1")
     implementation("org.locationtech.jts.io", "jts-io-common", "1.16.1")
