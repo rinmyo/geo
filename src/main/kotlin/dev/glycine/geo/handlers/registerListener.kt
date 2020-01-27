@@ -1,8 +1,8 @@
-package handlers
+package dev.glycine.geo.handlers
 
-import enums.PropertyType
+import dev.glycine.geo.enums.PropertyType
 import hazae41.minecraft.kutils.bukkit.*
-import managers.SessionManager
+import dev.glycine.geo.managers.SessionManager
 import org.bukkit.entity.Player
 import org.bukkit.event.entity.EntityDamageByEntityEvent
 import org.bukkit.event.entity.EntityDamageEvent

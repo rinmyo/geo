@@ -1,7 +1,9 @@
-import managers.PathManager
+package dev.glycine.geo
+
+import dev.glycine.geo.managers.PathManager
 import org.bukkit.Bukkit
 import org.locationtech.jts.geom.LineString
-import utils.geometryFrom
+import dev.glycine.geo.utils.geometryFrom
 import java.util.*
 
 /**

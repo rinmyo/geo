@@ -1,15 +1,15 @@
-package managers
+package dev.glycine.geo.managers
 
-import Can
-import GeoMain
-import Path
-import builders.CanBuilder
-import builders.PathBuilder
+import dev.glycine.geo.Can
+import dev.glycine.geo.GeoMain
+import dev.glycine.geo.Path
+import dev.glycine.geo.builders.CanBuilder
+import dev.glycine.geo.builders.PathBuilder
 import hazae41.minecraft.kutils.bukkit.schedule
 import org.bukkit.Particle
 import org.bukkit.entity.Player
 import org.locationtech.jts.geom.Coordinate
-import utils.getDiscreteCoordinates
+import dev.glycine.geo.utils.getDiscreteCoordinates
 
 /**
  * 視圖管理者

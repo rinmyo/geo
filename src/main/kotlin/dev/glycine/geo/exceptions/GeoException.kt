@@ -1,4 +1,4 @@
-package exceptions
+package dev.glycine.geo.exceptions
 
 import java.lang.RuntimeException
 

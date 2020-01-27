@@ -1,0 +1,11 @@
+version: 0.2
+
+#plugin Configuration
+plugin:
+  debug: true
+
+#MongoDB Configuration
+MongoDB:
+  host: 127.0.0.1
+  port: 27017
+  database: test

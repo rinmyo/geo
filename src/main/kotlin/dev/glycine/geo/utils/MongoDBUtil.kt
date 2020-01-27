@@ -1,4 +1,4 @@
-package utils
+package dev.glycine.geo.utils
 
 import org.locationtech.jts.geom.Geometry as JGeometry
 import com.mongodb.client.model.geojson.Geometry as MGeometry

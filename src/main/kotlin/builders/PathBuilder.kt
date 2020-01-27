@@ -1,4 +1,0 @@
-package builders
-
-class PathBuilder {
-}

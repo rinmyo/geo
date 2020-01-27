@@ -1,9 +1,8 @@
-package utils
+package dev.glycine.geo.utils
 
 import org.locationtech.jts.geom.*
 import org.locationtech.jts.io.geojson.GeoJsonReader
 import org.locationtech.jts.io.geojson.GeoJsonWriter
-import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.sin
 

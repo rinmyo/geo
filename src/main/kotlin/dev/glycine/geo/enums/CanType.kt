@@ -1,4 +1,4 @@
-package enums
+package dev.glycine.geo.enums
 
 /**
  * 不同的用地類型

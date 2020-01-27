@@ -1,6 +1,6 @@
-package managers
+package dev.glycine.geo.managers
 
-import Can
+import dev.glycine.geo.Can
 import com.mongodb.client.MongoCollection
 
 object CanManager {

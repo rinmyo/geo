@@ -1,11 +1,11 @@
-package handlers
+package dev.glycine.geo.handlers
 
-import GeoMain
-import Can
+import dev.glycine.geo.GeoMain
+import dev.glycine.geo.Can
 import hazae41.minecraft.kutils.bukkit.command
-import managers.CanManager
-import managers.SessionManager
-import utils.msg
+import dev.glycine.geo.managers.CanManager
+import dev.glycine.geo.managers.SessionManager
+import dev.glycine.geo.utils.msg
 import org.bukkit.entity.Player
 
 fun handleCommand(plugin: GeoMain){

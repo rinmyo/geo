@@ -1,4 +1,4 @@
-package enums.contexts
+package dev.glycine.geo.enums.contexts
 
 enum class SettingCanContext {
     SETTING_NAME,

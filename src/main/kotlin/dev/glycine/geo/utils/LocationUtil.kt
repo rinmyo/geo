@@ -1,6 +1,5 @@
-package utils
+package dev.glycine.geo.utils
 
-import Can
 import org.bukkit.Location
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory

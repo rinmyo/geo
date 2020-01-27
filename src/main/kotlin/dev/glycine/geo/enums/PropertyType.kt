@@ -1,7 +1,6 @@
-package enums
+package dev.glycine.geo.enums
 
-import Can
-import org.bukkit.entity.Player
+import dev.glycine.geo.Can
 
 /**
  * 下列權限皆是對原版玩家行為作出的一些限制

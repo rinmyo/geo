@@ -1,13 +1,15 @@
-import enums.CanType
-import managers.CanManager
+package dev.glycine.geo
+
+import dev.glycine.geo.enums.CanType
+import dev.glycine.geo.managers.CanManager
 import org.bukkit.Bukkit
 import org.bukkit.Location
 import org.bukkit.block.Block
 import org.bukkit.entity.Entity
 import org.bukkit.event.player.PlayerMoveEvent
 import org.locationtech.jts.geom.MultiPolygon
-import utils.geometryFrom
-import utils.toJTSPoint
+import dev.glycine.geo.utils.geometryFrom
+import dev.glycine.geo.utils.toJTSPoint
 import java.util.*
 
 /**

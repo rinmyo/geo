@@ -1,4 +1,4 @@
-package utils
+package dev.glycine.geo.utils
 
 import hazae41.minecraft.kutils.bukkit.BukkitSender
 import hazae41.minecraft.kutils.bukkit.msg

@@ -1,11 +1,11 @@
-package managers
+package dev.glycine.geo.managers
 
-import Path
-import Can
-import builders.PathBuilder
-import builders.PolygonBuilder
-import builders.CanBuilder
-import enums.contexts.SettingCanContext
+import dev.glycine.geo.Path
+import dev.glycine.geo.Can
+import dev.glycine.geo.builders.PathBuilder
+import dev.glycine.geo.builders.PolygonBuilder
+import dev.glycine.geo.builders.CanBuilder
+import dev.glycine.geo.enums.contexts.SettingCanContext
 import org.bukkit.entity.Player
 
 object SessionManager {

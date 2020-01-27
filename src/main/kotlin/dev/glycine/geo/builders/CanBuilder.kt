@@ -1,7 +1,7 @@
-package builders
+package dev.glycine.geo.builders
 
-import Can
-import enums.CanType
+import dev.glycine.geo.Can
+import dev.glycine.geo.enums.CanType
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.entity.Player
@@ -12,10 +12,10 @@ import org.bukkit.inventory.ItemStack
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.MultiPolygon
 import org.locationtech.jts.geom.Polygon
-import utils.msg
-import utils.toGeoJSON
+import dev.glycine.geo.utils.msg
+import dev.glycine.geo.utils.toGeoJSON
 import java.util.*
-import enums.contexts.SettingCanContext as Context
+import dev.glycine.geo.enums.contexts.SettingCanContext as Context
 
 class CanBuilder {
 
@@ -83,7 +83,17 @@ class CanBuilder {
     fun isDone() = settingDone
 
     fun build(): Can =
-        Can(name, UUID.randomUUID(), founder.uniqueId, world.uid, data.toGeoJSON(), floor, ceil, type, description)
+        Can(
+            name,
+            UUID.randomUUID(),
+            founder.uniqueId,
+            world.uid,
+            data.toGeoJSON(),
+            floor,
+            ceil,
+            type,
+            description
+        )
 
     fun handleEvent(chatEvent: AsyncPlayerChatEvent) {
         chatEvent.isCancelled = true

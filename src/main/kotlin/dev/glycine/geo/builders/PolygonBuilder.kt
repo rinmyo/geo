@@ -1,11 +1,10 @@
-package builders
+package dev.glycine.geo.builders
 
-import exceptions.GeoException
 import org.bukkit.Location
 import org.locationtech.jts.geom.Coordinate
 import org.locationtech.jts.geom.GeometryFactory
 import org.locationtech.jts.geom.Polygon
-import utils.coordinate
+import dev.glycine.geo.utils.coordinate
 
 /**
  * 多邊形構造者
