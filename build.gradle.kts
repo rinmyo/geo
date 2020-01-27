@@ -6,10 +6,10 @@ plugins {
 }
 
 group = "dev.glycine"
-version = "0.1"
+version = "0.1-SNAPSHOT"
 
 repositories {
-    jcenter()
+    mavenCentral()
     maven("https://jitpack.io")
     maven("https://repo.locationtech.org/content/groups/releases")
     maven("https://oss.sonatype.org/content/groups/public/")
@@ -18,6 +18,7 @@ repositories {
 
 dependencies {
     compileOnly(kotlin("stdlib-jdk8"))
+    testCompile("junit", "junit", "4.12")
     compileOnly("com.destroystokyo.paper", "paper-api", "1.15.2-R0.1-SNAPSHOT")
     compileOnly("com.github.hazae41", "mc-kutils", "master-SNAPSHOT")
     implementation("org.locationtech.jts", "jts-core", "1.16.1")

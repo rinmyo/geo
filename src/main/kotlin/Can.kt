@@ -78,8 +78,14 @@ data class Can(
      */
     private fun contain(l: Location) = getProfile().contains(l.toJTSPoint()) && getProfile().boundary.contains(l.toJTSPoint()) &&  l.y >= floor && l.y <= ceil
 
+    /**
+     * 檢查一個方塊是否包含在罐頭中
+     */
     fun contain(b: Block) = b.world == getWorld() && contain(b.location)
 
+    /**
+     * 檢查一個實體是否包含在罐頭中
+     */
     fun contain(e: Entity) = e.world == getWorld() && contain(e.location)
 
     /**
