@@ -3,7 +3,7 @@ package dev.glycine.geo
 import hazae41.minecraft.kutils.bukkit.PluginConfigFile
 
 object Config: PluginConfigFile("config"){
-    val currentVer = "0.0.2"
+    const val currentVer = "0.0.2"
 
     val ver by string("version")
     val debug by boolean("plugin.debug")

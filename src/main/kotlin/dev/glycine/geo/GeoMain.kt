@@ -22,13 +22,13 @@ class GeoMain : BukkitPlugin() {
     override fun onEnable() {
         init(Config)
 
-        info("============= INFO START =============")
+        info("============ INFO START ============")
         info(Config.ver)
         info(Config.debug.toString())
         info(Config.host)
         info(Config.port)
         info(Config.db)
-        info("============= INFO END =============")
+        info("============ INFO END ============")
 
         if (Config.ver != Config.currentVer){
             info("配置文件過時")
